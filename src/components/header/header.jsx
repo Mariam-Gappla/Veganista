@@ -1,10 +1,30 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { use } from 'react';
+import { use, useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import LanguageContext from '../../Context/language';
 const Header = () => {
-    const item=useSelector(state=>state.cart.items)
+    const item = useSelector(state => state.cart.items)
+    const {Lang,setLang}=useContext(LanguageContext)
+    function handelchang(e)
+    {
+        const selectedValue = e.target.value;
+        if (selectedValue === 'ar') {
+            setLang('ar');
+          } else {
+            setLang('en');
+          }
+    }
+    useEffect(()=>{
+        if (Lang === 'ar') {
+            document.documentElement.lang = 'ar';
+            document.documentElement.dir = 'rtl';
+          } else {
+            document.documentElement.lang = 'en';
+            document.documentElement.dir = 'ltr';
+          }
+    },[Lang])
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -23,10 +43,16 @@ const Header = () => {
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/Shoppingcard">
-                                {item.length!=0 &&<p className='bg-danger rounded-circle text-center' style={{height:'20px',width:'20px',fontSize:"15px",marginBottom:'-5px',marginLeft:'12px'}}>{item.length}</p>}
-                                <FontAwesomeIcon icon={faCartShopping} />
+                                    {item.length != 0 && <p className='bg-danger rounded-circle text-center' style={{ height: '20px', width: '20px', fontSize: "15px", marginBottom: '-5px', marginLeft: '12px' }}>{item.length}</p>}
+                                    <FontAwesomeIcon icon={faCartShopping} />
                                 </Link>
-                               
+
+                            </li>
+                            <li className="nav-item">
+                                <select value={Lang} onChange={handelchang}>
+                                    <option value="en">English</option>
+                                    <option value="ar">Arabic</option>
+                                </select>
                             </li>
                         </ul>
                     </div>

@@ -10,7 +10,7 @@ const Card = (props) => {
                     <div className="card mb-2">
                         <div>
                             {props.prd.stock > 0 ? <span className="badge bg-success ms-2 mt-2">in stock</span> : <span className="badge bg-danger ms-2 mt-2">out stock</span>}
-                            <img src={props.prd.thumbnail} class="card-img-top" alt="..." />
+                            <img src={props.prd.thumbnail} className="card-img-top" alt="..." />
                         </div>
                         <div className="card-body">
                             <div className="d-flex justify-content-between">
